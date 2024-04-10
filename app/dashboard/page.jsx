@@ -1,21 +1,18 @@
 "use client"
 import {useState} from 'react';
-import useParams from './useParams';
 import useRequest from './useRequest';
-import useHeaders from './useHeaders';
+import useMethod from './useMethod';
 
 export default function Page(){
     const [responseText,setResponseText]=useState("");
-    const [paramsComponent,params]=useParams();
-    const [headersComponent,headers]=useHeaders();
     const [requestComponent,requestURL,requestMethod]=useRequest();
+    const methodComponent=useMethod();
     return(
         <>
             <div className="requestContainer">
                 <form>
                     {requestComponent}
-                    {paramsComponent}
-                    {/* {headersComponent} */}
+                    {methodComponent}
                 </form>
             </div>
             <div className="queryContainer"></div>
