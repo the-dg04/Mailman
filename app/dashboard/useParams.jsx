@@ -5,12 +5,11 @@ const useParams=()=>{
     const addParam=(e)=>{
         e.preventDefault();
         setParams(params.concat([["",""]]));
-        console.log(params);
     }
-    const handleParamChange=(i,e,updater)=>{
+    const handleParamChange=(i,e,key_or_value)=>{
         e.preventDefault();
         const new_params=params.slice();
-        new_params[i][updater]=e.target.value;
+        new_params[i][key_or_value]=e.target.value;
         setParams(new_params);
     }
     
@@ -19,7 +18,7 @@ const useParams=()=>{
         setParams(params.filter((param,idx)=>idx!=i));
     }
 
-    const paramsComponent=params.map((param,idx)=>{
+    const paramsComponent=[<div>Params</div>].concat(params.map((param,idx)=>{
         return(
             <div key={idx} style={{'display':'flex'}}>
                 <input type="text" value={param[0]} onChange={(e)=>{handleParamChange(idx,e,0)}} placeholder='Key' style={{'width':'80px'}}/>
@@ -27,7 +26,9 @@ const useParams=()=>{
                 <button onClick={(e)=>{deleteParam(idx,e)}}>Delete</button>
             </div>
         );
-    });
+    })).concat(<div key="addParam">
+        <button onClick={addParam}>+</button>
+    </div>);
     return([paramsComponent,params]);
 
 }
