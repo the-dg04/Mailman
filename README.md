@@ -1,1 +1,1 @@
-please suggest a better name i have crippling depression ._.
+suggest a better name i have crippling depression ._.
