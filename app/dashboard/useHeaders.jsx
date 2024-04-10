@@ -17,7 +17,7 @@ const useHeaders=()=>{
         e.preventDefault();
         setHeaders(headers.filter((header,idx)=>idx!=i));
     }
-
+    // turn key-value-delete into a UI component
     const headersComponent=[<div>Headers</div>].concat(headers.map((header,idx)=>{
         return(
             <div key={idx} style={{'display':'flex'}}>
