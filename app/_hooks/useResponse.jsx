@@ -4,6 +4,7 @@ import { useEffect,useState } from "react";
 
 export default function useBody(props){
     const [response,setResponse]=useState();
+    const [responseCode,setResponseCode]=useState();
     const [requestURL,requestMethod,params,headers,body]=props;
 
     const compileRequest=()=>{
@@ -19,13 +20,31 @@ export default function useBody(props){
         const res=await fetch(URLString,
             {
                 method:'GET',
+                // mode:'no-cors',
                 headers: headersDict,
             });
-        const responseText=await res.json();
-        console.log(responseText);
-        setResponse(JSON.stringify(responseText,null,2));
+        try{
+            if(res.status==200){
+
+                const responseText=await res.json();
+                console.log(responseText);
+                console.log(res);
+                setResponse(JSON.stringify(responseText,null,2));
+            }else{
+                setResponse(JSON.stringify(res,null,2));
+            }
+            setResponseCode(res.status);
+        }catch(error){
+            // console.log(res);
+            setResponse(String(error));
+            // console.log(error);
+            setResponseCode(res.status);
+        }
     };
     
-    const responseComponent=<Editor height="50vh" width="100vw" defaultLanguage="json" value={response} options={{'readOnly':'true'}}/>
-    return([responseComponent,response,fetchResponse]);
+    const responseComponent=<>
+        <div>Response Code: <span style={{'color':responseCode==200?"green":"red"}}>{responseCode}</span></div>
+        <Editor height="50vh" width="100vw" defaultLanguage="json" value={response} options={{'readOnly':'true'}}/>
+    </>
+    return([responseComponent,response,responseCode,fetchResponse]);
 }
