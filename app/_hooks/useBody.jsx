@@ -4,7 +4,7 @@ import { useState } from "react";
 
 export default function useBody(){
     const [body,setBody]=useState();
-    return(
-        <Editor height="20vh" width="50vw" defaultLanguage="json" value={body} onChange={(e)=>{setBody(e)}}/>
+    const bodyComponent=<Editor height="20vh" width="50vw" defaultLanguage="json" value={body} onChange={(e)=>{setBody(e)}}/>
+    return([bodyComponent,body]
     );
 }

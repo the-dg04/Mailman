@@ -6,7 +6,7 @@ import useBody from "./useBody";
 export default function useMethod(){
     const [paramsComponent,params]=useParams();
     const [headersComponent,headers]=useHeaders();
-    const bodyComponent=useBody();
+    const [bodyComponent,body]=useBody();
     const [currentMethod,setCurrentMethod]=useState("Params");
     const methodSelectorComponent=['Params','Headers','Body'].map((choice,idx)=>
             <span key={idx}>
@@ -19,11 +19,11 @@ export default function useMethod(){
     if(currentMethod=="Headers") methodComponent=headersComponent;
     if(currentMethod=="Body") methodComponent=bodyComponent;
     return (
-        <>
+        [<>
             <div>
                 {methodSelectorComponent}
             </div>
             {methodComponent}
-        </>
-    );
+        </>,
+        params,headers,body]);
 }
