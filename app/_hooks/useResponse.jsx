@@ -6,6 +6,7 @@ export default function useBody(props){
     const [response,setResponse]=useState();
     const [responseCode,setResponseCode]=useState();
     const [requestURL,requestMethod,params,headers,body]=props;
+    const [pretty,setPretty]=useState(false);
 
     const compileRequest=()=>{
         let headersDict={};
@@ -20,31 +21,32 @@ export default function useBody(props){
         const res=await fetch(URLString,
             {
                 method:'GET',
-                // mode:'no-cors',
                 headers: headersDict,
             });
+            console.log(res);
         try{
             if(res.status==200){
-
-                const responseText=await res.json();
+                const responseText=await res.text();
                 console.log(responseText);
-                console.log(res);
-                setResponse(JSON.stringify(responseText,null,2));
-            }else{
-                setResponse(JSON.stringify(res,null,2));
+                // setResponse(JSON.stringify(responseText,null,2));
+                setResponse(responseText);
             }
             setResponseCode(res.status);
         }catch(error){
-            // console.log(res);
             setResponse(String(error));
-            // console.log(error);
             setResponseCode(res.status);
         }
     };
-    
+    let parsedResponse;
+    if(pretty){
+        parsedResponse=JSON.stringify(JSON.parse(response),null,2);
+    }else{
+        parsedResponse=response;
+    }
     const responseComponent=<>
         <div>Response Code: <span style={{'color':responseCode==200?"green":"red"}}>{responseCode}</span></div>
-        <Editor height="50vh" width="100vw" defaultLanguage="json" value={response} options={{'readOnly':'true'}}/>
+        <input type="checkbox" checked={pretty} onClick={()=>{setPretty(!pretty)}} /> Pretty
+        <Editor height="50vh" width="100vw" defaultLanguage="json" value={parsedResponse} options={{'readOnly':'true'}}/>
     </>
-    return([responseComponent,response,responseCode,fetchResponse]);
+    return([responseComponent,fetchResponse]);
 }

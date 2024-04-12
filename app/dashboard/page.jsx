@@ -7,7 +7,7 @@ import useResponse from "@@/_hooks/useResponse";
 export default function Page(){
     const [requestComponent,requestURL,requestMethod]=useRequest();
     const [methodComponent,params,headers,body]=useMethod();
-    const [responseComponent,response,responseCode,fetchResponse]=useResponse([requestURL,requestMethod,params,headers,body]);
+    const [responseComponent,fetchResponse]=useResponse([requestURL,requestMethod,params,headers,body]);
     return(
         <>
             <div className="requestContainer">
