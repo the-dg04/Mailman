@@ -3,13 +3,12 @@ import RequestsModel from "@/models/requestsModel";
 import mongoose from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function DELETE(request,{params}) {
+export async function GET(request,{params}) {
     try {
         await connectToMongo()
-        console.log("deleting ",params.id);
-        const allRequests=await RequestsModel.findByIdAndDelete(params.id)
+        const requestById=await RequestsModel.find({_id:params.id})
         await mongoose.connection.close()
-        return NextResponse.json({message:`deleted ${params.id} successfully`}, { status: 200 })
+        return NextResponse.json({result:requestById[0]}, { status: 200 })
     } catch (err) {
         console.error(err)
         await mongoose.connection.close()

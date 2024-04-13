@@ -9,7 +9,7 @@ export default function useRequest(){
                 <option value="GET">GET</option>
                 <option value="POST">POST</option>
                 <option value="DELETE">DELETE</option>
-                <option value="UPDATE">UPDATE</option>
+                <option value="PATCH">PATCH</option>
             </select>
             <input type="text" value={requestURL} placeholder="Enter URL or paste text" onChange={(e)=>{setRequestURL(e.target.value)}} style={{'border':'1px solid black'}}/>
         </>,requestURL,requestMethod]
