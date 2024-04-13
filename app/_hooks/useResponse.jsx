@@ -20,17 +20,18 @@ export default function useBody(props){
         const [URLString,headersDict]=compileRequest();
         const res=await fetch(URLString,
             {
-                method:'GET',
+                method:requestMethod,
                 headers: headersDict,
+                body:body,
             });
             console.log(res);
         try{
-            if(res.status==200){
+            // if(res.status==200){
                 const responseText=await res.text();
                 console.log(responseText);
                 // setResponse(JSON.stringify(responseText,null,2));
                 setResponse(responseText);
-            }
+            // }
             setResponseCode(res.status);
         }catch(error){
             setResponse(String(error));
@@ -44,7 +45,7 @@ export default function useBody(props){
         parsedResponse=response;
     }
     const responseComponent=<>
-        <div>Response Code: <span style={{'color':responseCode==200?"green":"red"}}>{responseCode}</span></div>
+        <div>Response Code: <span style={{'color':(responseCode>=200 && responseCode<=299)?"green":"red"}}>{responseCode}</span></div>
         <input type="checkbox" checked={pretty} onClick={()=>{setPretty(!pretty)}} /> Pretty
         <Editor height="50vh" width="100vw" defaultLanguage="json" value={parsedResponse} options={{'readOnly':'true'}}/>
     </>
