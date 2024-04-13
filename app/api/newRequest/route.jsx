@@ -9,9 +9,10 @@ export async function POST(request) {
         await connectToMongo()
         const requestName="New Request"
         console.log(requestName,requestURL,requestMethod,requestParams,requestHeaders,requestBody,requestResponse);
-        await RequestsModel.create({ requestName,requestURL,requestMethod,requestParams,requestHeaders,requestBody,requestResponse})
+        const newRequest=await RequestsModel.create({ requestName,requestURL,requestMethod,requestParams,requestHeaders,requestBody,requestResponse})
+        console.log(newRequest);
         await mongoose.connection.close()
-        return NextResponse.json({ message: "Message sent successfully" }, { status: 201 })
+        return NextResponse.json({ result: {'id':newRequest.id,'name':"New Request","editMode":false} }, { status: 201 })
     } catch (err) {
         console.error(err)
         await mongoose.connection.close()
