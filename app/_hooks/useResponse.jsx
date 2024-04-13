@@ -17,13 +17,15 @@ export default function useBody(props){
     }
     const fetchResponse=async (e)=>{
         e.preventDefault();
+        setPretty((value)=>{return false});
+        setResponse("Fetching...");
         const [URLString,headersDict]=compileRequest();
-        const res=await fetch(URLString,
-            {
-                method:requestMethod,
-                headers: headersDict,
-                body:body,
-            });
+        let options={
+            method:requestMethod,
+            headers: headersDict,
+        };
+        if(body) options.body=body;
+        const res=await fetch(URLString,options);
             console.log(res);
         try{
             // if(res.status==200){

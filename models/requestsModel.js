@@ -1,5 +1,6 @@
 import { Schema, model, models } from "mongoose";
 const requestsSchema = new Schema({
+    requestName: String,
     requestURL: String,
     requestMethod: String,
     requestParams: String,
