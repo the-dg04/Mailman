@@ -29,7 +29,6 @@ export default function uitest(){
     })
     const sendFunction=async (e)=>{
       await fetchResponse(e);
-      console.log("response fetched");
       setFetched((cur_val)=>{
         return true;
       })
@@ -46,7 +45,6 @@ export default function uitest(){
         if(window.innerWidth>=1024) setShowSidebar(true);
         if(window.innerWidth<1024) setShowSidebar(false);
         const handleResize = () => {
-            console.log(window.innerWidth);
             if(window.innerWidth>=1024) setShowSidebar(true);
             if(window.innerWidth<1024) setShowSidebar(false);
             setShowBackdrop(false)

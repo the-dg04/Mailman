@@ -43,7 +43,6 @@ export default function useRequestCardList(props){
 
     const fetchAllRequests=async ()=>{
         try{
-            console.log("E");
             const res=await fetch('/api/getAllRequests')
             const responseText=await res.json()
             if(responseText.result.length==0){
@@ -56,14 +55,12 @@ export default function useRequestCardList(props){
                     setActiveRequestId(responseText.result[0]._id)
                 }
             }
-            console.log("actveRequestId : ",activeRequestId);
         }catch(err){
             console.log(String(err));
         }
     }
     const fetchAllRequestsAfterDeletion=async ()=>{
         try{
-            console.log("E");
             const res=await fetch('/api/getAllRequests')
             const responseText=await res.json()
             if(responseText.result.length==0){
@@ -74,19 +71,16 @@ export default function useRequestCardList(props){
                 })
                     setActiveRequestId(responseText.result[0]._id)
             }
-            console.log("actveRequestId : ",activeRequestId);
         }catch(err){
             console.log(String(err));
         }
     }
 
     useEffect(()=>{
-        console.log(activeRequestId);
         const updateActiveRequest=()=>{
             try{
                 if(activeRequestId!=""){
                     const activeRequestParams=allRequests.filter((req)=>req.id==activeRequestId)[0]
-                    console.log(activeRequestParams.response);
                     setRequestURL(activeRequestParams.response.requestURL)
                     setRequestMethod(activeRequestParams.response.requestMethod)
                     setParams(JSON.parse(activeRequestParams.response.requestParams))
