@@ -2,7 +2,7 @@ import { connectToMongo } from "@/libs/mongo.lib";
 import RequestsModel from "@/models/requestsModel";
 import mongoose from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
-
+export const dynamic = 'force-dynamic';
 export async function GET(request,{params}) {
     try {
         await connectToMongo()
