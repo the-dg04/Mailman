@@ -6,6 +6,7 @@ export const dynamic = 'force-dynamic';
 export async function PATCH(request,{params}) {
     try {
         const body=await request.json()
+        console.log(`body : ${body}`);
         await connectToMongo()
         const allRequests=await RequestsModel.updateOne({_id:params.id},{$set:body})
         await mongoose.connection.close()

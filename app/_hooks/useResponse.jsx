@@ -1,7 +1,7 @@
 "use client";
 import Editor from "@monaco-editor/react";
 import { useState } from "react";
-
+export const dynamic = 'force-dynamic';
 export default function useResponse(props){
     const [response,setResponse]=useState("");
     const [responseCode,setResponseCode]=useState("");
@@ -28,12 +28,13 @@ export default function useResponse(props){
             console.log(res);
             const responseText=await res.text();
             console.log(responseText);
-            setResponse(responseText);
-            setResponseCode(res.status);
+            setResponse((cur_val)=>{return responseText});
+            setResponseCode((cur_val)=>{return res.status});
         }catch(error){
-            setResponse(String(error));
-            setResponseCode(0);
+            setResponse((cur_val)=>{return String(error)});
+            setResponseCode((cur_val)=>{return 0});
         }
+        
     };
     let parsedResponse=response;
     try{

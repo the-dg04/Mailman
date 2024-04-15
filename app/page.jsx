@@ -13,6 +13,7 @@ export default function uitest(){
     const [requestComponent,requestURL,setRequestURL,requestMethod,setRequestMethod]=useRequest();
     const [MethodComponent,params,setParams,headers,setHeaders,body,setBody]=useMethod();
     const [responseComponent,fetchResponse,response,setResponse,responseCode,setResponseCode]=useResponse([requestURL,requestMethod,params,headers,body]);
+    const [fetched,setFetched]=useState(false);
     const [sideBarComponent,activeRequestId]=useSideBar({
         'setRequestMethods':[setRequestURL,setRequestMethod,setParams,setHeaders,setBody,setResponse,setResponseCode],
         'showSidebar':showSidebar,
@@ -26,6 +27,21 @@ export default function uitest(){
       'setShowBackdrop':setShowBackdrop,
       'activeRequestId':activeRequestId
     })
+    const sendFunction=async (e)=>{
+      await fetchResponse(e);
+      console.log("response fetched");
+      setFetched((cur_val)=>{
+        return true;
+      })
+    }
+    useEffect(()=>{
+      if(fetched){
+        saveRequest();
+        setFetched((cur_val)=>{
+          return false;
+        })
+      }
+    },[fetched])
     useEffect(() => {
         if(window.innerWidth>=1024) setShowSidebar(true);
         if(window.innerWidth<1024) setShowSidebar(false);
@@ -53,7 +69,7 @@ export default function uitest(){
                <div class="w-full">
                   <div className="flex flex-row w-full">
                     {requestComponent}
-                    <button type="submit" className="w-24 my-5 h-12 mx-2 items-end text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center" onClick={(e)=>{fetchResponse(e);saveRequest();}}>Send</button>
+                    <button type="submit" className="w-24 my-5 h-12 mx-2 items-end text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center" onClick={async (e)=>{await sendFunction(e)}}>Send</button>
                   </div>
                   {MethodComponent}
                 {responseComponent}
