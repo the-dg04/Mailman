@@ -1,9 +1,25 @@
 export default function Navbar(props){
+    const [requestURL,requestMethod,params,headers,body,response,responseCode]=props.apiParams;
+    const saveRequest=async ()=>{
+        const res=await fetch(`/api/updateRequestById/${props.activeRequestId}`,
+        {
+            method:"PATCH",
+            body:JSON.stringify({
+                requestURL: requestURL,
+                requestMethod: requestMethod,
+                requestParams: JSON.stringify(params),
+                requestHeaders: JSON.stringify(headers),
+                requestBody: body,
+                requestResponse: response,
+                requestResponseCode: Number(responseCode)
+            })
+        })
+    }
     return(
         <nav className="bg-white border-b border-gray-200 fixed z-30 w-full">
-            <div className="px-3 py-3 lg:px-5 lg:pl-3">
-                <div className="flex items-center justify-between">
-                    <div className="flex items-center justify-start">
+            <div className="w-full flex px-3 py-3 lg:px-5 lg:pl-3">
+                <div className="w-full flex">
+                    <div className="flex w-full">
                         <button id="toggleSidebarMobile" aria-expanded="true" aria-controls="sidebar" className="lg:hidden mr-2 text-gray-600 hover:text-gray-900 cursor-pointer p-2 hover:bg-gray-100 focus:bg-gray-100 focus:ring-2 focus:ring-gray-100 rounded" onClick={()=>{props.setShowSidebar(!props.showSidebar);props.setShowBackdrop(!props.showBackdrop);console.log(props.showSidebar);}}>
                             <svg id="toggleSidebarMobileHamburger" className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
@@ -13,12 +29,10 @@ export default function Navbar(props){
                             </svg>
                         </button>
                         <a href="#" className="text-xl font-bold flex items-center lg:ml-2.5">
-                        {/* <img src="https://demo.themesberg.com/windster/images/logo.svg" className="h-6 mr-2" alt="Windster Logo"/> */}
-                        <span className="self-center whitespace-nowrap">[Logo]</span>
+                            <span className="self-center whitespace-nowrap">[MailMan]</span>
                         </a>
-                        
                     </div>
-                    <div className="items-end">[Cat pic]</div>
+                    <button className="w-24 h-10 mx-2 justify-end text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm" onClick={saveRequest}>Save</button>
                 </div>
             </div>
         </nav>

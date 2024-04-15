@@ -2,9 +2,9 @@
 import Editor from "@monaco-editor/react";
 import { useEffect,useState } from "react";
 
-export default function useBody(props){
-    const [response,setResponse]=useState();
-    const [responseCode,setResponseCode]=useState();
+export default function useResponse(props){
+    const [response,setResponse]=useState("");
+    const [responseCode,setResponseCode]=useState("");
     const [requestURL,requestMethod,params,headers,body]=props;
     const [pretty,setPretty]=useState(false);
 
@@ -37,16 +37,17 @@ export default function useBody(props){
             setResponseCode(res.status);
         }
     };
-    let parsedResponse;
-    if(pretty){
+    let parsedResponse="";
+    try{
         parsedResponse=JSON.stringify(JSON.parse(response),null,2);
-    }else{
-        parsedResponse=response;
+    }catch(error){
+        console.log(String(error));
     }
     const responseComponent=<>
-        <div>Response Code: <span style={{'color':(responseCode>=200 && responseCode<=299)?"green":"red"}}>{responseCode}</span></div>
-        <input type="checkbox" checked={pretty} onClick={()=>{setPretty(!pretty)}} /> Pretty JSON
-        <Editor height="50vh" width="100vw" defaultLanguage="json" value={parsedResponse} options={{'readOnly':'true'}}/>
+        <div className="flex w-full justify-start">
+            <div>Response Code: <span style={{'color':(responseCode>=200 && responseCode<=299)?"green":"red"}}>{responseCode}</span></div>
+        </div>
+        <Editor height="50vh" defaultLanguage="json" value={parsedResponse} options={{'readOnly':'true'}}/>
     </>
-    return([responseComponent,fetchResponse]);
+    return([responseComponent,fetchResponse,response,setResponse,responseCode,setResponseCode]);
 }

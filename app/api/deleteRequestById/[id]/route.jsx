@@ -6,7 +6,6 @@ import { NextRequest, NextResponse } from "next/server";
 export async function DELETE(request,{params}) {
     try {
         await connectToMongo()
-        console.log("deleting ",params.id);
         const allRequests=await RequestsModel.findByIdAndDelete(params.id)
         await mongoose.connection.close()
         return NextResponse.json({message:`deleted ${params.id} successfully`}, { status: 200 })

@@ -1,9 +1,9 @@
 export default function RequestCard(props){
     return(
         <li>
-            <div className="text-base text-gray-900 font-normal rounded-lg flex items-center p-2 hover:bg-gray-100 group">
+            <div className={`text-base text-gray-900 font-normal rounded-lg flex items-center p-2 ${props.request.id==props.activeRequestId?"bg-gray-200":""} hover:bg-gray-300 group`} >
                 {!props.request.editMode?
-                    <span className="ml-1 w-[150px] overflow-hidden text-nowrap">{props.request.name}</span>:
+                    <span className="ml-1 w-[150px] overflow-hidden text-nowrap" onClick={()=>{props.setActiveRequestId(props.request.id)}}>{props.request.name}</span>:
                     <input className="ml-1 w-[150px] overflow-hidden text-nowrap bg-white" value={props.request.name} onChange={(e)=>{props.updateRequest(e,props.request.id)}}/>
                 }
                 <button className=" ml-3 rounded p-1 hover:bg-gray-300" onClick={()=>{props.toggleMode(props.request.id)}}>

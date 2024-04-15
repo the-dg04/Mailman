@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(request) {
     try {
         await connectToMongo()
-        const allRequests=await RequestsModel.find({},{_id:1,requestName:1})
+        const allRequests=await RequestsModel.find()
         await mongoose.connection.close()
         return NextResponse.json({result:allRequests}, { status: 200 })
     } catch (err) {

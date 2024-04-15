@@ -7,7 +7,6 @@ export async function PATCH(request,{params}) {
     try {
         const body=await request.json()
         await connectToMongo()
-        console.log(`PATCH ${params.id} to ${JSON.stringify(body)}`);
         const allRequests=await RequestsModel.updateOne({_id:params.id},{$set:body})
         await mongoose.connection.close()
         return NextResponse.json({message:`updated ${params.id} successfully`}, { status: 200 })

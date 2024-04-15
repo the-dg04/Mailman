@@ -3,7 +3,6 @@ import Editor from "@monaco-editor/react";
 import { useState } from "react";
 
 export default function useBody(){
-    const [body,setBody]=useState();
-    const bodyComponent=<Editor height="20vh" width="100vw" defaultLanguage="json" value={body} onChange={(e)=>{setBody(e)}}/>
-    return([bodyComponent,body]);
+    const [body,setBody]=useState("");
+    return([<Editor height="20vh" defaultLanguage="json" value={body} onChange={(e)=>{setBody(e)}}/>,body,setBody]);
 }

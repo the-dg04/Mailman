@@ -7,6 +7,7 @@ const requestsSchema = new Schema({
     requestHeaders: String,
     requestBody: String,
     requestResponse: String,
+    requestResponseCode: Number,
 },
     {
         timestamps: true

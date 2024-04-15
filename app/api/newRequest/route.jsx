@@ -5,14 +5,12 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request) {
     try {
-        const { requestURL,requestMethod,requestParams,requestHeaders,requestBody,requestResponse} = await request.json()
+        const { requestURL,requestMethod,requestParams,requestHeaders,requestBody,requestResponse,requestResponseCode} = await request.json()
         await connectToMongo()
         const requestName="New Request"
-        console.log(requestName,requestURL,requestMethod,requestParams,requestHeaders,requestBody,requestResponse);
-        const newRequest=await RequestsModel.create({ requestName,requestURL,requestMethod,requestParams,requestHeaders,requestBody,requestResponse})
-        console.log(newRequest);
+        const newRequest=await RequestsModel.create({ requestName,requestURL,requestMethod,requestParams,requestHeaders,requestBody,requestResponse,requestResponseCode})
         await mongoose.connection.close()
-        return NextResponse.json({ result: {'id':newRequest.id,'name':"New Request","editMode":false} }, { status: 201 })
+        return NextResponse.json({ result: {'id':newRequest.id,'name':"New Request",'response':newRequest,"editMode":false} }, { status: 201 })
     } catch (err) {
         console.error(err)
         await mongoose.connection.close()
