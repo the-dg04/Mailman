@@ -5,6 +5,7 @@ import useSideBar from "@@/_hooks/useSideBar";
 import useRequest from "@@/_hooks/useRequest";
 import useMethod from "@@/_hooks/useMethod";
 import useResponse from "@@/_hooks/useResponse";
+export const dynamic = 'force-dynamic';
 export default function uitest(){
     const [showSidebar,setShowSidebar]=useState(false);
     const [showBackdrop,setShowBackdrop]=useState(false);
