@@ -3,7 +3,7 @@ import Editor from "@monaco-editor/react";
 import { useEffect,useState } from "react";
 
 export default function useResponse(props){
-    const [response,setResponse]=useState("Loading...");
+    const [response,setResponse]=useState("");
     const [responseCode,setResponseCode]=useState("");
     const [requestURL,requestMethod,params,headers,body]=props;
     const [pretty,setPretty]=useState(false);
