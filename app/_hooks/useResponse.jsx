@@ -1,12 +1,11 @@
 "use client";
 import Editor from "@monaco-editor/react";
-import { useEffect,useState } from "react";
+import { useState } from "react";
 
 export default function useResponse(props){
     const [response,setResponse]=useState("");
     const [responseCode,setResponseCode]=useState("");
     const [requestURL,requestMethod,params,headers,body]=props;
-    const [pretty,setPretty]=useState(false);
 
     const compileRequest=()=>{
         let headersDict={};
@@ -17,7 +16,6 @@ export default function useResponse(props){
     }
     const fetchResponse=async (e)=>{
         e.preventDefault();<useRequestCardList />
-        setPretty((value)=>{return false});
         setResponse("Fetching...");
         const [URLString,headersDict]=compileRequest();
         let options={

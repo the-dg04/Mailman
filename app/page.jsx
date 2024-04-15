@@ -1,6 +1,7 @@
 "use client"
 import { useEffect, useState } from "react";
 import NavBar from "@/components/NavBar";
+import useNavbar from "./_hooks/useNavBar";
 import useSideBar from "@@/_hooks/useSideBar";
 import useRequest from "@@/_hooks/useRequest";
 import useMethod from "@@/_hooks/useMethod";
@@ -16,6 +17,14 @@ export default function uitest(){
         'setRequestMethods':[setRequestURL,setRequestMethod,setParams,setHeaders,setBody,setResponse,setResponseCode],
         'showSidebar':showSidebar,
         'showBackdrop':showBackdrop
+    })
+    const [navBarComponent,saveRequest]=useNavbar({
+      'apiParams':[requestURL,requestMethod,params,headers,body,response,responseCode],
+      'showSidebar':showSidebar,
+      'setShowSidebar':setShowSidebar,
+      'showBackdrop':showBackdrop,
+      'setShowBackdrop':setShowBackdrop,
+      'activeRequestId':activeRequestId
     })
     useEffect(() => {
         if(window.innerWidth>=1024) setShowSidebar(true);
@@ -36,7 +45,7 @@ export default function uitest(){
 
     return(
     <div className="flex flex-col">
-      <NavBar showSidebar={showSidebar} setShowSidebar={setShowSidebar} showBackdrop={showBackdrop} setShowBackdrop={setShowBackdrop} apiParams={[requestURL,requestMethod,params,headers,body,response,responseCode]} activeRequestId={activeRequestId} />
+      {navBarComponent}
       <div className="flex grow overflow-hidden bg-white pt-16 h-full">
          {sideBarComponent}
          <div id="main-content" className="h-full w-full bg-gray-50 relative overflow-y-auto lg:ml-64">
@@ -44,7 +53,7 @@ export default function uitest(){
                <div class="w-full">
                   <div className="flex flex-row w-full">
                     {requestComponent}
-                    <button type="submit" className="w-24 my-5 h-12 mx-2 items-end text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center" onClick={fetchResponse}>Send</button>
+                    <button type="submit" className="w-24 my-5 h-12 mx-2 items-end text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center" onClick={(e)=>{fetchResponse(e);saveRequest();}}>Send</button>
                   </div>
                   {MethodComponent}
                 {responseComponent}

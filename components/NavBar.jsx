@@ -1,20 +1,4 @@
-export default function Navbar(props){
-    const [requestURL,requestMethod,params,headers,body,response,responseCode]=props.apiParams;
-    const saveRequest=async ()=>{
-        const res=await fetch(`/api/updateRequestById/${props.activeRequestId}`,
-        {
-            method:"PATCH",
-            body:JSON.stringify({
-                requestURL: requestURL,
-                requestMethod: requestMethod,
-                requestParams: JSON.stringify(params),
-                requestHeaders: JSON.stringify(headers),
-                requestBody: body,
-                requestResponse: response,
-                requestResponseCode: Number(responseCode)
-            })
-        })
-    }
+export default function NavBar(props){
     return(
         <nav className="bg-white border-b border-gray-200 fixed z-30 w-full">
             <div className="w-full flex px-3 py-3 lg:px-5 lg:pl-3">
@@ -32,7 +16,7 @@ export default function Navbar(props){
                             <span className="self-center whitespace-nowrap">[MailMan]</span>
                         </a>
                     </div>
-                    <button className="w-24 h-10 mx-2 justify-end text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm" onClick={saveRequest}>Save</button>
+                    <button className="w-24 h-10 mx-2 justify-end text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm" onClick={props.saveRequest}>Save</button>
                 </div>
             </div>
         </nav>
