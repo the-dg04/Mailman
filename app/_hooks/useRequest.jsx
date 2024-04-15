@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import DropDownCard from "@/components/DropDownCard";
 export default function useRequest(){
     const [requestURL,setRequestURL]=useState("Loading...");
     const [requestMethod,setRequestMethod]=useState("GET");
@@ -12,18 +12,9 @@ export default function useRequest(){
 
         <div id="dropdown" className={`w-24 mx-2 fixed z-10 ${!dropdownToggle?"hidden":""} divide-y  divide-gray-100 shadow bg-white`}>
            <ul class="py-2 text-sm w-24" aria-labelledby="dropdownDefaultButton">
-              <li class="w-24 h-full hover:bg-gray-100">
-               <button class=" w-24 h-full hover:bg-gray-100 text-left px-5" onClick={()=>{setRequestMethod("GET");setDropdownToggle(!dropdownToggle)}}>GET</button>
-              </li>
-              <li class="w-24 h-full hover:bg-gray-100">
-               <button class=" w-24 h-full hover:bg-gray-100 text-left px-5" onClick={()=>{setRequestMethod("POST");setDropdownToggle(!dropdownToggle)}}>POST</button>
-              </li>
-              <li class="w-24 h-full hover:bg-gray-100">
-               <button class=" w-24 h-full hover:bg-gray-100 text-left px-5" onClick={()=>{setRequestMethod("PATCH");setDropdownToggle(!dropdownToggle)}}>PATCH</button>
-              </li>
-              <li class="w-24 h-full hover:bg-gray-100">
-               <button class=" w-24 h-full hover:bg-gray-100 text-left px-5" onClick={()=>{setRequestMethod("DELETE");setDropdownToggle(!dropdownToggle)}}>DELETE</button>
-              </li>
+            {["GET","POST","PATCH","DELETE","PUT","HEAD","OPTIONS"].map((choice,idx)=>
+               <DropDownCard key={idx} setRequestMethod={setRequestMethod} requestType={choice} setDropdownToggle={setDropdownToggle} dropdownToggle={dropdownToggle} />
+            )}
            </ul>
         </div>
         </div>

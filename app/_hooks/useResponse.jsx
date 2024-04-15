@@ -25,16 +25,16 @@ export default function useResponse(props){
             headers: headersDict,
         };
         if(body) options.body=body;
-        const res=await fetch(URLString,options);
-            console.log(res);
         try{
-                const responseText=await res.text();
-                console.log(responseText);
-                setResponse(responseText);
+            const res=await fetch(URLString,options);
+            console.log(res);
+            const responseText=await res.text();
+            console.log(responseText);
+            setResponse(responseText);
             setResponseCode(res.status);
         }catch(error){
             setResponse(String(error));
-            setResponseCode(res.status);
+            setResponseCode(0);
         }
     };
     let parsedResponse=response;
