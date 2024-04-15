@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export default function useRequest(){
-    const [requestURL,setRequestURL]=useState("");
+    const [requestURL,setRequestURL]=useState("Loading...");
     const [requestMethod,setRequestMethod]=useState("GET");
     const [dropdownToggle,setDropdownToggle]=useState(false);
     return (

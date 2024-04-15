@@ -2,7 +2,7 @@ import RequestCard from "@/components/RequestCard";
 import NewRequestButton from "@/components/NewRequestButton";
 import { useState,useEffect } from "react";
 export default function useRequestCardList(props){
-    const [allRequests,setAllRequests]=useState([]);
+    const [allRequests,setAllRequests]=useState([{'name':"Loading..."}]);
     const [activeRequestId,setActiveRequestId]=useState("");
     const [setRequestURL,setRequestMethod,setParams,setHeaders,setBody,setResponse,setResponseCode]=props;
 

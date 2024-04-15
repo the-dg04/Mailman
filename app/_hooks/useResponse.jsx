@@ -3,7 +3,7 @@ import Editor from "@monaco-editor/react";
 import { useEffect,useState } from "react";
 
 export default function useResponse(props){
-    const [response,setResponse]=useState("");
+    const [response,setResponse]=useState("Loading...");
     const [responseCode,setResponseCode]=useState("");
     const [requestURL,requestMethod,params,headers,body]=props;
     const [pretty,setPretty]=useState(false);
@@ -37,7 +37,7 @@ export default function useResponse(props){
             setResponseCode(res.status);
         }
     };
-    let parsedResponse="";
+    let parsedResponse=response;
     try{
         parsedResponse=JSON.stringify(JSON.parse(response),null,2);
     }catch(error){
