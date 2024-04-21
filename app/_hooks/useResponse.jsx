@@ -15,7 +15,7 @@ export default function useResponse(props){
         return [URLString,headersDict];
     }
     const fetchResponse=async (e)=>{
-        e.preventDefault();<useRequestCardList />
+        e.preventDefault();
         setResponse("Fetching...");
         const [URLString,headersDict]=compileRequest();
         let options={

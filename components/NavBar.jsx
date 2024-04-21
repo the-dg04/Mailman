@@ -1,3 +1,5 @@
+import Image from "next/image";
+import Logo from '@/public/logo.png'
 export default function NavBar(props){
     return(
         <nav className="bg-white border-b border-gray-200 fixed z-30 w-full">
@@ -13,7 +15,8 @@ export default function NavBar(props){
                             </svg>
                         </button>
                         <a href="#" className="text-xl font-bold flex items-center lg:ml-2.5">
-                            <span className="self-center whitespace-nowrap">[MailMan]</span>
+                            <Image src={Logo} className="h-12 w-12"/>
+                            <span className="self-center whitespace-nowrap">MailMan</span>
                         </a>
                     </div>
                     <button className="w-24 h-10 mx-2 justify-end text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm" onClick={props.saveRequest}>Save</button>
